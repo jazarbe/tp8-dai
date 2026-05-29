@@ -7,8 +7,24 @@ export default class ProvinceService {
         const returnArray = await repo.getAllAsync();
         return returnArray;
     }
-    getByIdAsync = async (id) => {/* hacerlo */}
-    createAsync = async (entity) => {/* hacerlo */}
-    updateAsync = async (entity) => {/* hacerlo */}
-    deleteByIdAsync = async (id) => {/* hacerlo */}
+    getByIdAsync = async (id) => {
+        const repo = new ProvinceRepository();
+        const returnArray = await repo.getByIdAsync();
+        return returnArray;
+    }
+    createAsync = async (entity) => {
+        const repo = new ProvinceRepository();
+        const returnArray = await repo.createAsync(entity);
+        return returnArray;
+    }
+    updateAsync = async (entity) => {
+        const repo = new ProvinceRepository();
+        const returnArray = await repo.updateAsync(entity);
+        return returnArray;
+    }
+    deleteByIdAsync = async (id) => {
+        const repo = new ProvinceRepository();
+        const returnArray = await repo.deleteByIdAsync(id);
+        return returnArray;
+    }
 }

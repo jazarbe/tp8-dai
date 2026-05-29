@@ -48,10 +48,50 @@ export default class ProvinceRepository {
 
             const result = await client.query(sql, values);
             await client.end();
+            returnArray = result.rows;
         } catch (error) {
             console.log(error);
        } return returnArray;
     }
-    updateAsync = async (entity) => {/* hacerlo */}
-    deleteByIdAsync = async (id) => {/* hacerlo */}
+    updateAsync = async (entity) => {
+        let returnArray = null;
+        const client = new Client(config);
+        try {            
+            await client.connect();
+            const sql = `
+            UPDATE provinces 
+            SET name = $1, full_name = $2, latitude = $3, longitude = $4, display_order = $5
+            WHERE id = $6`;
+            const values = [
+                entity.name,
+                entity.full_name,
+                entity.latitude,
+                entity.longitude,
+                entity.display_order,
+                entity.id
+            ];
+            const result = await client.query(sql, values);
+            await client.end();
+            returnArray = result.rows;
+        }
+         catch (error) {
+            console.log(error);
+        }
+         return returnArray;
+    }
+    deleteByIdAsync = async (id) => {
+        let returnArray = null;
+        const client = new Client(config);
+        try {
+            await client.connect();
+            const sql = `DELETE FROM provinces WHERE id = $1`;
+            const result = await client.query(sql, id);
+            await client.end();
+            returnArray = result.rows;
+        }
+            catch (error) {
+            console.log(error);
+        }
+            return returnArray;
+    }
 }
