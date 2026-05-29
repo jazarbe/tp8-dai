@@ -6,5 +6,5 @@ export default class Province {
         this.latitude = latitude;
         this.longitude = longitude;
         this.display_order = display_order;
-    }   
+    }
 }
