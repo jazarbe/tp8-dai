@@ -22,9 +22,10 @@ export default class ProvinceRepository {
         try {
             await client.connect();
             const sql = `SELECT * FROM provinces WHERE id = $1`;
-            const result = await client.query(sql, id);
+            const result = await client.query(sql, [id]);
             await client.end();
-            returnArray = result.rows;
+            // [GEMINI] If no rows found, return null so controllers can return 404
+            returnArray = (result.rows && result.rows.length > 0) ? result.rows[0] : null;
         } catch (error) {
             console.log(error);
         } return returnArray;
@@ -85,7 +86,7 @@ export default class ProvinceRepository {
         try {
             await client.connect();
             const sql = `DELETE FROM provinces WHERE id = $1`;
-            const result = await client.query(sql, id);
+            const result = await client.query(sql, [id]);
             await client.end();
             returnArray = result.rows;
         }

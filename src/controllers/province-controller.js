@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import ProvinceService from './../services/province-service.js'
 const router = Router();
-const svc = new ProvinceService();  // Instanciación del Service.
+const svc = new ProvinceService();
+import Province from '../entities/province.js';
 
 router.get('', async (req, res) => {
     let respuesta;
@@ -15,7 +16,7 @@ router.get('', async (req, res) => {
 });
 router.get('/:id', async (req, res) => {
     let respuesta;
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10)
     const returnArray = await svc.getByIdAsync(id);
     if (returnArray != null){
         respuesta = res.status(200).json(returnArray);
@@ -24,7 +25,7 @@ router.get('/:id', async (req, res) => {
     }
     return respuesta;
 })
-router.post('/create', async (req, res) => {
+router.post('', async (req, res) => {
     let respuesta;
     const entity = new Province(null, req.body.name, req.body.full_name, req.body.latitude, req.body.longitude, req.body.display_order);
     const returnArray = await svc.createAsync(entity);
@@ -35,7 +36,7 @@ router.post('/create', async (req, res) => {
     }
     return respuesta;
 })
-router.put('/update', async (req, res) => {
+router.put('', async (req, res) => {
     let respuesta;
     const entity = new Province(req.body.id, req.body.name, req.body.full_name, req.body.latitude, req.body.longitude, req.body.display_order);
     const returnArray = await svc.updateAsync(entity);
@@ -47,9 +48,9 @@ router.put('/update', async (req, res) => {
     }
     return respuesta;
 })
-router.delete('/delete', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     let respuesta;
-    const id = req.body.id;
+    const id = parseInt(req.params.id, 10);
     const returnArray = await svc.deleteByIdAsync(id);
     if (returnArray != null){
         respuesta = res.status(200).json(returnArray);
