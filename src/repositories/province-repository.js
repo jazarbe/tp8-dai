@@ -1,6 +1,7 @@
 import config from './../configs/dbConfig.js';
 import pkg from 'pg'
 const { Client, Pool } = pkg;
+import LogHelper from '../helpers/logHelper.js';
 
 export default class ProvinceRepository {
     getAllAsync = async () => {
@@ -27,7 +28,7 @@ export default class ProvinceRepository {
             // [GEMINI] If no rows found, return null so controllers can return 404
             returnArray = (result.rows && result.rows.length > 0) ? result.rows[0] : null;
         } catch (error) {
-            console.log(error);
+            LogHelper.logError(error);
         } return returnArray;
     }
     createAsync = async (entity) => {
