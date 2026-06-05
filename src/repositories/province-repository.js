@@ -37,7 +37,8 @@ export default class ProvinceRepository {
             await client.connect();
             const sql = `
             INSERT INTO provinces (name, full_name, latitude, longitude, display_order) 
-            VALUES ($1, $2, $3, $4, $5)`;
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *`;
         
             const values = [
                 entity.name,
@@ -62,7 +63,8 @@ export default class ProvinceRepository {
             const sql = `
             UPDATE provinces 
             SET name = $1, full_name = $2, latitude = $3, longitude = $4, display_order = $5
-            WHERE id = $6`;
+            WHERE id = $6
+            RETURNING *`;
             const values = [
                 entity.name,
                 entity.full_name,
@@ -85,7 +87,7 @@ export default class ProvinceRepository {
         const client = new Client(config);
         try {
             await client.connect();
-            const sql = `DELETE FROM provinces WHERE id = $1`;
+            const sql = `DELETE FROM provinces WHERE id = $1 RETURNING *`;
             const result = await client.query(sql, [id]);
             await client.end();
             returnArray = result.rows;

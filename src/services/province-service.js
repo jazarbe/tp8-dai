@@ -1,3 +1,4 @@
+import { validarId, validarProvincia } from '../helpers/validaciones-helper.js'
 import ProvinceRepository from '../repositories/province-repository.js';
 
 export default class ProvinceService {
@@ -7,23 +8,35 @@ export default class ProvinceService {
         return returnArray;
     }
     getByIdAsync = async (id) => {
-        const repo = new ProvinceRepository();
-        const returnArray = await repo.getByIdAsync(id);
+        let returnArray = null
+        if(validarId(id)){
+            const repo = new ProvinceRepository();
+            returnArray = await repo.getByIdAsync(id);
+        }
         return returnArray;
     }
     createAsync = async (entity) => {
-        const repo = new ProvinceRepository();
-        const returnArray = await repo.createAsync(entity);
+        let returnArray = null
+        if(validarProvincia(entity)){
+            const repo = new ProvinceRepository();
+            returnArray = await repo.createAsync(entity);
+        }
         return returnArray;
     }
     updateAsync = async (entity) => {
-        const repo = new ProvinceRepository();
-        const returnArray = await repo.updateAsync(entity);
+        let returnArray = null
+        if(validarProvincia(entity)){
+            const repo = new ProvinceRepository();
+            returnArray = await repo.updateAsync(entity);
+        }
         return returnArray;
     }
     deleteByIdAsync = async (id) => {
-        const repo = new ProvinceRepository();
-        const returnArray = await repo.deleteByIdAsync(id);
+        let returnArray = null
+        if(validarId(id)){
+            const repo = new ProvinceRepository();
+            returnArray = await repo.deleteByIdAsync(id);
+        }
         return returnArray;
     }
 }
