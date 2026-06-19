@@ -14,7 +14,7 @@ export default class ProvinceRepository {
             await client.end();
             returnArray = result.rows;
         } catch (error) {
-            console.log(error);
+            LogHelper.logError(error);
         } return returnArray;
     }
     getByIdAsync = async (id) => {
@@ -53,7 +53,7 @@ export default class ProvinceRepository {
             await client.end();
             returnArray = result.rows;
         } catch (error) {
-            console.log(error);
+            LogHelper.logError(error);
        } return returnArray;
     }
     updateAsync = async (entity) => {
@@ -79,7 +79,7 @@ export default class ProvinceRepository {
             returnArray = result.rows;
         }
          catch (error) {
-            console.log(error);
+            LogHelper.logError(error);
         }
          return returnArray;
     }
@@ -94,7 +94,7 @@ export default class ProvinceRepository {
             returnArray = result.rows;
         }
             catch (error) {
-            console.log(error);
+            LogHelper.logError(error);
         }
             return returnArray;
     }
